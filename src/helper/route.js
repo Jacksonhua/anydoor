@@ -3,7 +3,7 @@ const path =require("path");
 const config=require("../config/Deaultcon");
 const mime =require("./mime");
 const compress=require("./compress");
-//const range=require("./range");
+const range=require("./range");
 const Handlebars =require("handlebars");
 const promisify =require("util").promisify;
 
@@ -21,9 +21,18 @@ module.exports=async function(req,res,filePath){
 			const contentType=mime(filePath);
 			//console.info(contentType);
 			//res.writeHead(200, { "Content-Type": contentType });
-			res.statusCode=200;
+			
 			res.setHeader("Content-Type",contentType);
-			let rs=fs.createReadStream(filePath);
+			let rs;
+			const{code,start,end}=range(stats.size,req,res);
+			if(code===200){
+				res.statusCode=200;
+				rs=fs.createReadStream(filePath);
+			}else{
+				res.statusCode=206;
+				rs=fs.createReadStream(filePath,{start,end});
+			}
+			
 			if(filePath.match(config.compress)){
 				rs=compress(rs,req,res);
 			}
