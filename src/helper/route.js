@@ -1,6 +1,6 @@
 const fs =require("fs");
 const path =require("path");
-const config=require("../config/Deaultcon");
+
 const mime =require("./mime");
 const compress=require("./compress");
 const isFresh= require("./cache");
@@ -15,14 +15,11 @@ const template=Handlebars.compile(source.toString());
 const pro_stat=promisify(fs.stat);
 const pro_readdir=promisify(fs.readdir);
 
-module.exports=async function(req,res,filePath){
+module.exports=async function(req,res,filePath,config){
 	try{
 		const stats=await pro_stat(filePath);
 		if(stats.isFile()){
 			const contentType=mime(filePath);
-			//console.info(contentType);
-			//res.writeHead(200, { "Content-Type": contentType });
-			
 			res.setHeader("Content-Type",contentType);
 
 			if(isFresh(stats,req,res)){

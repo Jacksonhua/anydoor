@@ -2,7 +2,8 @@
   "name": "anydoor",
   "version": "1.0.0",
   "description": "Tiny NodeJS Static Web server",
-  "main": "index.js",
+  "main": "src/app.js",
+  "bin": "anydoor",
   "scripts": {
     "lint": "eslint .",
     "fix": "eslint --fix ."

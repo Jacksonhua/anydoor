@@ -3,6 +3,7 @@ Tiny NodeJS Static Web server
 #range 206
 处理部分get请求
 使用curl
+缓存没有做好
 
 ###安装
 '''''
