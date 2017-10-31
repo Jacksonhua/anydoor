@@ -7,8 +7,8 @@ const route=require("./helper/route");
 
 const server=http.createServer((req,res)=>{
    
-    const filePath= path.join(conf.root,req.url);
-    route(req,res,filePath);
+	const filePath= path.join(conf.root,req.url);
+	route(req,res,filePath);
     
 
 /*
@@ -33,13 +33,13 @@ const server=http.createServer((req,res)=>{
         }
      });*/
 
-    // res.statusCode=200;
-    // res.setHeader("Content-Type","text/plain");
-    // res.writeHead(200, { 'Content-Type': 'text/plain' });
+	// res.statusCode=200;
+	// res.setHeader("Content-Type","text/plain");
+	// res.writeHead(200, { 'Content-Type': 'text/plain' });
 //    res.end(`filePath is ${filePath}`);
    
 });
 server.listen(conf.port,conf.hostname,()=>{
-    const addr = `http://${conf.hostname}:${conf.port}`;
-    console.log(`Server started at ${chalk.green(addr)}`);
+	const addr = `http://${conf.hostname}:${conf.port}`;
+	console.info(`Server started at ${chalk.green(addr)}`);
 });

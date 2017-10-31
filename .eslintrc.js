@@ -6,16 +6,20 @@ module.exports = {
         "node": true
     },
     "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "script"
+    },
     "rules": {
+        "no-console": ["error", {
+            "allow": ["warn", "error", "info"]
+          }],
         "indent": [
             "error",
             "tab"
         ],
-		"parser": "babel-eslint",
-		"parserOptions": {
-		"ecmaVersion": 6,
-		"sourceType": "script"
-  },
+		
         "linebreak-style": [
             "error",
             "windows"
