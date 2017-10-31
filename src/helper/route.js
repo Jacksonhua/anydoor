@@ -3,6 +3,7 @@ const path =require("path");
 const config=require("../config/Deaultcon");
 const mime =require("./mime");
 const compress=require("./compress");
+const isFresh= require("./cache");
 const range=require("./range");
 const Handlebars =require("handlebars");
 const promisify =require("util").promisify;
@@ -23,6 +24,13 @@ module.exports=async function(req,res,filePath){
 			//res.writeHead(200, { "Content-Type": contentType });
 			
 			res.setHeader("Content-Type",contentType);
+
+			if(isFresh(stats,req,res)){
+				res.statusCode= 304;
+				res.end();
+				return ;
+			}
+
 			let rs;
 			const{code,start,end}=range(stats.size,req,res);
 			if(code===200){
